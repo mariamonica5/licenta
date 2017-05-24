@@ -68,7 +68,7 @@ public class StudentServiceTest {
         Student result = studentService.save(student);
 
         assertEquals(student, result);
-        //assertEquals(null, result);
+        assertEquals(null, result);
 
         verifyZeroInteractions(observer);
 
