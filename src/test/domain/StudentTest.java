@@ -1,5 +1,6 @@
-package domain;
+package test.domain;
 
+import domain.Student;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
