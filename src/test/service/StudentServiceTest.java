@@ -1,8 +1,9 @@
-package service;
+package test.service;
 
 import domain.Student;
 import org.mockito.Mockito;
 import repository.Repository;
+import service.StudentService;
 import utils.Observer;
 
 import java.util.ArrayList;
