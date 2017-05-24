@@ -1,6 +1,8 @@
-package domain.validators;
+package test.domain.validator;
 
 import domain.Student;
+import domain.validators.StudentValidator;
+import domain.validators.ValidatorException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
