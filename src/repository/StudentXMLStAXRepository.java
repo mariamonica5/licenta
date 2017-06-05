@@ -2,19 +2,8 @@ package repository;
 
 import domain.Student;
 import domain.validators.Validator;
-import org.w3c.dom.*;
-import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.*;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +19,26 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
 
     @Override
     public void loadData()  {
+        loadData(super.fileName, super.entities);
+    }
+
+    public List<Student> loadData(String filename, List<Student> stud){
+		
+		 //List<Student> stud= new ArrayList<Student>();
         InputStream fileInputStream = null;//ClassLoader.getSystemResourceAsStream(fileName);
         try {
-            fileInputStream = new FileInputStream(super.fileName);
-            super.entities = readFromXML(fileInputStream);
+            fileInputStream = new FileInputStream(filename);
+            stud = readFromXML(fileInputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         catch (XMLStreamException e) {
             e.printStackTrace();
         }
+
+        return stud;
     }
+
     public List<Student> readFromXML(InputStream is) throws XMLStreamException {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         XMLStreamReader reader = null;
@@ -53,14 +51,22 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
             }
         }
     }
+
     public void writeToFile() {
+
+        writeToFile(super.fileName);
+
+    }
+
+    public void writeToFile(String filename){
+
         OutputStream fileOutputStream = null;
         try {
-            fileOutputStream = new FileOutputStream(super.fileName);
-                writeToXML(fileOutputStream);
-            } catch (XMLStreamException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
+            fileOutputStream = new FileOutputStream(filename);
+            writeToXML(fileOutputStream);
+        } catch (XMLStreamException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -80,6 +86,8 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
             });
             streamWriter.writeEndElement();
     }
+
+
 
     public void writeStudent(Student x, XMLStreamWriter writer) throws XMLStreamException{
         writer.writeStartElement("student");
@@ -137,5 +145,6 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
         }
         throw new XMLStreamException("Premature end of file");
     }
+
 
 }
