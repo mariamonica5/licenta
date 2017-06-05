@@ -51,6 +51,7 @@ public class StudenXMLStAX2Repository extends AbstractFileRepository<Student, St
                             e.printStackTrace();
                         }
                     }
+
             }
         }
     }
@@ -63,6 +64,7 @@ public class StudenXMLStAX2Repository extends AbstractFileRepository<Student, St
         {
             int eventType=reader.next();
             switch (eventType){
+
                 case XMLStreamReader.START_ELEMENT:
                     if (reader.getLocalName().equals("property"))
                         currentProperty.append(reader.getAttributeValue(null,"name"));
@@ -108,6 +110,7 @@ public class StudenXMLStAX2Repository extends AbstractFileRepository<Student, St
         }
     }
 
+
     private void writeToXMLFile(XMLStreamWriter writer) throws XMLStreamException {
         writer.writeStartElement("students");
         super.findAll().forEach(x -> {
@@ -119,6 +122,7 @@ public class StudenXMLStAX2Repository extends AbstractFileRepository<Student, St
         });
         writer.writeEndElement();
     }
+
 
     private void writeStudent(Student x, XMLStreamWriter writer) throws XMLStreamException{
         writer.writeStartElement("student");
