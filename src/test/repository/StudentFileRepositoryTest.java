@@ -43,6 +43,7 @@ public class StudentFileRepositoryTest {
         Student student2 = new Student("nm0020", "Nemes", "Madalina", "nm@yahoo.com");
         students.add(student1);
         students.add(student2);
+
     }
 
 
@@ -80,7 +81,9 @@ public class StudentFileRepositoryTest {
 
         List<Student> studenti = new ArrayList<Student>();
         studenti = repo.loadData("D:\\Licenta\\C8\\src\\test\\repository\\fail.txt");
-        //repo.loadData();
+        repo.loadData();
+        repo.loadData();
+        repo.loadData();
 
 
 
