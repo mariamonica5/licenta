@@ -1,25 +1,30 @@
 package test.domain;
 
 import domain.Student;
+import mockit.integration.junit4.JMockit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Moni on 5/15/2017.
  */
+@RunWith(JMockit.class)
 public class StudentTest {
 
     Student student=null;
     Student student2=null;
+    Student student3=null;
 
     @Before
     public void setUp() throws Exception {
 
         student=new Student("bmig0003","Monica","Barutia","bm@yahoo.com");
         student2= new Student("nmig0020", "Madalina", "Nemes", "nm@yahoo.com");
+        student3= new Student();
 
     }
 
@@ -57,6 +62,7 @@ public class StudentTest {
 
         assertEquals("Monica",student.getFirstName());
         assertEquals("Madalina",student2.getFirstName());
+        assertEquals("", student3.getFirstName());
 
     }
 
@@ -65,6 +71,7 @@ public class StudentTest {
 
         assertEquals("Barutia",  student.getLastName());
         assertEquals("Nemes", student2.getLastName());
+        assertEquals("", student3.getLastName());
     }
 
     @Test
@@ -72,6 +79,7 @@ public class StudentTest {
 
         assertEquals("bm@yahoo.com", student.getEmail());
         assertEquals("nm@yahoo.com", student2.getEmail());
+        assertEquals("", student3.getEmail());
 
     }
 
@@ -91,6 +99,7 @@ public class StudentTest {
 
         assertEquals("bmig0003", student.getId());
         assertEquals("nmig0020", student2.getId());
+        assertEquals("", student3.getId());
 
     }
 
