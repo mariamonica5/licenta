@@ -1,6 +1,8 @@
 package test.service;
 
 import domain.Student;
+import mockit.integration.junit4.JMockit;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import repository.Repository;
 import service.StudentService;
@@ -18,6 +20,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by Moni on 5/15/2017.
  */
+@RunWith(JMockit.class)
 public class StudentServiceTest {
 
     private Student student=null;
