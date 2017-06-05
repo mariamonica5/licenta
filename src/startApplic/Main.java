@@ -168,6 +168,7 @@ public class Main extends Application {
 //            disciplinaService.addObserver(disciplinaViewCtrl);
         } catch (IOException e) {
             e.printStackTrace();
+
         }
     }
 
