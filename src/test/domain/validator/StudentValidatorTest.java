@@ -3,17 +3,20 @@ package test.domain.validator;
 import domain.Student;
 import domain.validators.StudentValidator;
 import domain.validators.ValidatorException;
+import mockit.integration.junit4.JMockit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
 /**
  * Created by Moni on 5/15/2017.
  */
+//@RunWith(JMockit.class)
 public class StudentValidatorTest {
 
     private Student student=null;
@@ -43,6 +46,8 @@ public class StudentValidatorTest {
         studentValidator.validate(student);
 
 
+
+
     }
 
     @Test
@@ -60,6 +65,7 @@ public class StudentValidatorTest {
 
     @Test
     public void validateLastName() throws Exception {
+
 
         thrown.expect(ValidatorException.class);
         thrown.expectMessage("last name error ");
