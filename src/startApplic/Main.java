@@ -89,6 +89,7 @@ public class Main extends Application {
     {
         Validator<Student> vali= new StudentValidator();
         studentRepo=new StudentFileRepository(vali,"./src/data/Students.txt");
+        //studentRepo=new StudentFileRepository(vali,"D:\\Licenta\\C8\\src\\data\\Students.txt");
     }
 
     @Override
@@ -137,6 +138,11 @@ public class Main extends Application {
             System.out.println(e.getMessage());
         }
     }
+
+    public void setRootLayout(BorderPane rootLayout) {
+        this.rootLayout = rootLayout;
+    }
+
     public void initStudentViewLayout() {
         try {
             // Load student view.

@@ -32,7 +32,13 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
 
     @Override
     public void loadData()  {
-        Document document =loadDocument();
+        File file= new File(super.fileName);
+        loadData(file);
+    }
+
+    public List<Student> loadData(File filename){
+
+        Document document =loadDocument(filename);
         Node root = document.getDocumentElement();
         NodeList nodeList = root.getChildNodes();
         List<Student> students = new ArrayList<>();
@@ -45,9 +51,14 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
             }
         }
         super.entities.addAll(students);
+        return students;
     }
 
     public void writeToFile() {
+        writeToFile(super.entities);
+    }
+
+    public void writeToFile(List<Student> studenti){
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -55,7 +66,7 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
             Document doc = docBuilder.newDocument();
             Element rootElement = doc.createElement("students");
             doc.appendChild(rootElement);
-            for (Student x:super.entities)
+            for (Student x:studenti)
             {
                 Element student = doc.createElement("student");
                 rootElement.appendChild(student);
@@ -86,13 +97,19 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
     }
 
     Document loadDocument() {
+        File file= new File(super.fileName);
+        loadDocument(file);
+        return null;
+    }
+
+    Document loadDocument(File filename){
         try {
             //File inputFile = new File(super.fileName);
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = null;
             Document doc=null;
             docBuilder = docFactory.newDocumentBuilder();
-            doc= docBuilder.parse(new FileInputStream(super.fileName));
+            doc= docBuilder.parse(new FileInputStream(filename));
             return doc;
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -129,6 +146,11 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
 
 
     public void writeToFile2() {
+        writeToFile2(super.entities);
+    }
+
+    public void writeToFile2(List<Student> studenti){
+
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -136,7 +158,7 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
             Document doc = docBuilder.newDocument();
             Element rootElement = doc.createElement("students");
             doc.appendChild(rootElement);
-            for (Student x:super.entities)
+            for (Student x:studenti)
             {
                 // create student element
                 Element student = doc.createElement("student");
@@ -173,6 +195,7 @@ public class StudentXMLRepository extends AbstractFileRepository<Student,String>
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         }
+
     }
 
 }

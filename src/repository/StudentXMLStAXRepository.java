@@ -23,8 +23,7 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
     }
 
     public List<Student> loadData(String filename, List<Student> stud){
-		
-		 //List<Student> stud= new ArrayList<Student>();
+
         InputStream fileInputStream = null;//ClassLoader.getSystemResourceAsStream(fileName);
         try {
             fileInputStream = new FileInputStream(filename);
@@ -54,16 +53,16 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
 
     public void writeToFile() {
 
-        writeToFile(super.fileName);
+        writeToFile(super.fileName, super.entities);
 
     }
 
-    public void writeToFile(String filename){
+    public void writeToFile(String filename, List<Student> entities){
 
         OutputStream fileOutputStream = null;
         try {
             fileOutputStream = new FileOutputStream(filename);
-            writeToXML(fileOutputStream);
+            writeToXML(fileOutputStream, entities);
         } catch (XMLStreamException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
@@ -72,36 +71,46 @@ public class StudentXMLStAXRepository extends AbstractFileRepository<Student,Str
     }
 
     private void writeToXML(OutputStream fileOutputStream) throws XMLStreamException{
-        XMLOutputFactory factory = XMLOutputFactory.newInstance();
-             factory.createXMLEventWriter(fileOutputStream);
-            XMLStreamWriter streamWriter =
-                    factory.createXMLStreamWriter(fileOutputStream);
-            streamWriter.writeStartElement("students");
-            super.entities.forEach(x -> {
-                try {
-                    writeStudent(x, streamWriter);
-                } catch (XMLStreamException e) {
-                    e.printStackTrace();
-                }
-            });
-            streamWriter.writeEndElement();
+       writeToXML(fileOutputStream, super.entities);
     }
+
+    private void writeToXML(OutputStream fileOutputStream,List<Student> entities ) throws XMLStreamException{
+        XMLOutputFactory factory = XMLOutputFactory.newInstance();
+        factory.createXMLEventWriter(fileOutputStream);
+        XMLStreamWriter streamWriter =
+                factory.createXMLStreamWriter(fileOutputStream);
+        streamWriter.writeStartElement("students");
+        entities.forEach(x -> {
+            try {
+                writeStudent(x, streamWriter);
+            } catch (XMLStreamException e) {
+                e.printStackTrace();
+            }
+        });
+        streamWriter.writeEndElement();
+    }
+
 
 
 
     public void writeStudent(Student x, XMLStreamWriter writer) throws XMLStreamException{
         writer.writeStartElement("student");
         writer.writeAttribute("id",x.getId());
+
         writer.writeStartElement("firstName");
         writer.writeAttribute("value",x.getFirstName());
         writer.writeEndElement();
+
         writer.writeStartElement("lastName");
         writer.writeAttribute("value",x.getLastName());
         writer.writeEndElement();
+
         writer.writeStartElement("email");
         writer.writeAttribute("value",x.getEmail());
         writer.writeEndElement();
+
         writer.writeEndElement();
+        writer.flush();
     }
 
 

@@ -56,6 +56,8 @@ public class StudentXMLStAXRepositoryTest {
         is=new FileInputStream("D:\\Licenta\\C8\\src\\test\\repository\\read.xml");
         is2=new FileInputStream("D:\\Licenta\\C8\\src\\test\\repository\\write.xml");
 
+
+
     }
 
 
@@ -86,20 +88,6 @@ public class StudentXMLStAXRepositoryTest {
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
-    @Test
-    public void readFromXMLFail() throws Exception {
-
-        thrown.expect(XMLStreamException.class);
-        thrown.expectMessage("Premature end of file");
-
-        List<Student> stud= new ArrayList<Student>();
-
-
-        stud=repo.readFromXML(is2);
-
-        //assertEquals(stud.size(),students.size());
-
-    }
 
 
     @Test
@@ -118,8 +106,12 @@ public class StudentXMLStAXRepositoryTest {
     @Test
     public void writeToFileFail() throws FileNotFoundException {
 
-        repo.writeToFile("file.xml");
+
+        repo.writeToFile("file.xml", students);
         repo.writeToFile();
+
+
+
 
 
     }
@@ -127,9 +119,16 @@ public class StudentXMLStAXRepositoryTest {
     @Test
     public void writeToFile() throws XMLStreamException {
 
-        repo.writeToFile("D:\\Licenta\\C8\\src\\test\\repository\\write.xml");
-        repo.writeToFile("D:\\Licenta\\C8\\src\\test\\repository\\test.xml");
+        List<Student> stud= new ArrayList<Student>();
+        repo.writeToFile("D:\\Licenta\\C8\\src\\test\\repository\\write.xml", students);
         repo.writeToFile();
+        stud=repo.readFromXML(is2);
+
+        assertEquals(students.size(),stud.size());
+        assertEquals(student1.getFirstName(),stud.get(0).getFirstName());
+        assertEquals(student1.getLastName(),stud.get(0).getLastName());
+        assertEquals(student1.getEmail(),stud.get(0).getEmail());
+
 
     }
 
@@ -137,6 +136,15 @@ public class StudentXMLStAXRepositoryTest {
     public void writeStudent() throws Exception {
 
         repo.writeStudent(student1, writer);
+
+        List<Student> stud= new ArrayList<Student>();
+        stud=repo.readFromXML(is2);
+
+        assertEquals(student1.getFirstName(),stud.get(0).getFirstName());
+        assertEquals(student1.getLastName(),stud.get(0).getLastName());
+        assertEquals(student1.getEmail(),stud.get(0).getEmail());
+
+
 
     }
 

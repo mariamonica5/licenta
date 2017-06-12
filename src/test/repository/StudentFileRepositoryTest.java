@@ -47,6 +47,7 @@ public class StudentFileRepositoryTest {
     }
 
 
+
     @After
     public void tearDown() throws Exception {
 
@@ -66,26 +67,6 @@ public class StudentFileRepositoryTest {
             repo.loadData();
 
         assertEquals(students.size(),studenti.size());
-
-    }
-
-    @Test
-    public void loadDataFail()throws Exception{
-
-        //test type
-        thrown.expect(Exception.class);
-
-        //test message
-        thrown.expectMessage(is("Linia nu este valida!"));
-
-
-        List<Student> studenti = new ArrayList<Student>();
-        studenti = repo.loadData("D:\\Licenta\\C8\\src\\test\\repository\\fail.txt");
-        repo.loadData();
-        repo.loadData();
-        repo.loadData();
-
-
 
     }
 

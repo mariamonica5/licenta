@@ -165,6 +165,7 @@ public class StudentViewController implements Observer<Student>{
             EditStudentViewController editStudentViewController = loader.getController();
             editStudentViewController.setService(service, dialogStage,student);
 
+
             dialogStage.show();
 
         } catch (IOException e) {
